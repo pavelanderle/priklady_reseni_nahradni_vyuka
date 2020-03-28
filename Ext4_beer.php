@@ -20,7 +20,7 @@ abstract class Beer {
 
     /* metoda vracející informace o daném pivu */
     public function info(){
-        return $this->name."-".$this->getPriceWithVAT();
+        return $this->name." cena za pivo ".$this->getPriceWithVAT()." Kč s DPH";
     }
 
     /* metoda vracející cenu s DPH pro zadaný počet zakoupených piv*/
@@ -44,11 +44,5 @@ class BeerBottled extends Beer{
     }
 }
 
-$beerOrder = new beerBottled("Prazdroj",23,5);
-echo $beerOrder->info()."->";
-echo $beerOrder->getPriceSum()."<br>";
 
-$beerOrder = new beerDraft("Prazdroj",23,5);
-echo $beerOrder->info()."->";
-echo $beerOrder->getPriceSum();
 ?>

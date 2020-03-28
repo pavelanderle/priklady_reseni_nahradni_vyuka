@@ -27,12 +27,12 @@
           </div>
         <div class="form-check-inline">
             <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="typeBeer" value="lp">Lahvové pivo
+              <input type="radio" class="form-check-input" name="typeBeer" value="lp" checked >Lahvové pivo
             </label>
         </div>
         <div class="form-group">
             <label for="usr">Počet piv:</label>
-            <input type="number" class="form-control" id="numBeer" name="numBeer">
+            <input type="number" class="form-control" id="numBeer" name="numBeer" value=1 required>
           </div>
         <div class="form-group">
             <input type="submit" value="Cena piv">
@@ -43,18 +43,20 @@
       <h2>Souhrn:</h2>
       <?php
         if (isset($_GET["nameBeer"])) {
-          include "Ext4_beer.php";
-          $priceBeer = array("Prazdroj"=>23,"Gambrinus"=>18,"Purkmistr"=>20);
-          $priceMyBeer = $priceBeer[$_GET["nameBeer"]];
+          include "Ext4_beer.php"; // připojení souboru s třídou
+          $priceBeer = array("Prazdroj"=>23,"Gambrinus"=>18,"Purkmistr"=>20); // pole nastavením piv a jejich cen
+          $priceMyBeer = $priceBeer[$_GET["nameBeer"]]; // získání ceny dle vybraného piva
+          /* výběr typu piva */
           if ($_GET["typeBeer"]=="cp") {
-            $myBeer = new BeerDraft($_GET["nameBeer"],$priceMyBeer,$_GET["numBeer"]);
+            $myBeer = new BeerDraft($_GET["nameBeer"],$priceMyBeer,$_GET["numBeer"]); // vytvoření objektu ze třídy BeerDraft
           }
           else {
-            $myBeer = new BeerBootled($_GET["nameBeer"],$priceMyBeer,$_GET["numBeer"]);
+            $myBeer = new BeerBottled($_GET["nameBeer"],$priceMyBeer,$_GET["numBeer"]); // vytvoření objektu ze třídy BeerBottled
           }
           
-          echo "<p><strong>Zadané pivo: </strong>". $myBeer => info()."</p>";
-          echo "<p><strong>Celková cena: </strong>". $myBeer=>getPriceSum()."</p>";
+          /* výpisy */
+          echo "<p><strong>Zadané pivo: </strong>". $myBeer -> info()."</p>";
+          echo "<p><strong>Celková cena: </strong>". $myBeer->getPriceSum()." Kč</p>";
         } 
       ?>
     </div>
