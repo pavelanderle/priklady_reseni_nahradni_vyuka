@@ -23,9 +23,7 @@ abstract class codingString{
 /* Třída MorseABC - potomek třídy codingString. Třída umožňuje kódovat text do morseovy abecedy a z morseovy abecedy na text */
 
 class Morse extends CodingString{
-    public function coding($text) : string{
-    $string_lower = strtolower($text);
-    $assoc_array = array(
+    const MORSECODE = array(
         "a"=>".-",
         "b"=>"-...", 
         "c"=>"-.-.", 
@@ -68,24 +66,37 @@ class Morse extends CodingString{
         "/"=>"-..-.",
         " "=>" ");
 
+    public function coding($text) : string{
+        $string_lower = strtolower($text);
         $code = "";
         for($i=0;$i<strlen($string_lower);$i++){
             $index = $string_lower[$i];       
-            $code .= $assoc_array["$index"]." ";
+            $code .= SELF::MORSECODE["$index"]." ";
                
         }
         return $code;
     }
 
     public function decoding($code) : String {
-
+        $codeExplode = explode("|",$code);
+        $text = "";
+        foreach ($codeExplode as $char) {
+            foreach (SELF::MORSECODE as $key => $codeItem) {
+                if ($codeItem == $char) {
+                    $text .= $key;
+                }
+            }
+        }
+        return $text;
     }
 
     public function info() : String {
-
+        return "Nyní používáte kódování: ".$this->nameCoding;
     }
 }
 
-$Morsecoding = new Morse("Kódování morseovka");
-echo $Morsecoding -> coding("Ahoj");
+$morsecoding = new Morse("Kódování morseovka");
+echo "<h2>". $morsecoding->info()."</h2>";
+echo $morsecoding -> coding("Ahoj");
+echo $morsecoding -> decoding(".-|....|---|.---");
 ?>
