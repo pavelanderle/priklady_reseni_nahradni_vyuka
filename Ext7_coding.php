@@ -22,5 +22,70 @@ abstract class codingString{
 
 /* Třída MorseABC - potomek třídy codingString. Třída umožňuje kódovat text do morseovy abecedy a z morseovy abecedy na text */
 
-// todo
+class Morse extends CodingString{
+    public function coding($text) : string{
+    $string_lower = strtolower($text);
+    $assoc_array = array(
+        "a"=>".-",
+        "b"=>"-...", 
+        "c"=>"-.-.", 
+        "d"=>"-..", 
+        "e"=>".", 
+        "f"=>"..-.", 
+        "g"=>"--.", 
+        "h"=>"....", 
+        "i"=>"..", 
+        "j"=>".---", 
+        "k"=>"-.-", 
+        "l"=>".-..", 
+        "m"=>"--", 
+        "n"=>"-.", 
+        "o"=>"---", 
+        "p"=>".--.", 
+        "q"=>"--.-", 
+        "r"=>".-.", 
+        "s"=>"...", 
+        "t"=>"-", 
+        "u"=>"..-", 
+        "v"=>"...-", 
+        "w"=>".--", 
+        "x"=>"-..-", 
+        "y"=>"-.--", 
+        "z"=>"--..", 
+        "0"=>"-----",
+        "1"=>".----", 
+        "2"=>"..---", 
+        "3"=>"...--", 
+        "4"=>"....-", 
+        "5"=>".....", 
+        "6"=>"-....", 
+        "7"=>"--...", 
+        "8"=>"---..", 
+        "9"=>"----.",
+        "."=>".-.-.-",
+        ","=>"--..--",
+        "?"=>"..--..",
+        "/"=>"-..-.",
+        " "=>" ");
+
+        $code = "";
+        for($i=0;$i<strlen($string_lower);$i++){
+            $index = $string_lower[$i];       
+            $code .= $assoc_array["$index"]." ";
+               
+        }
+        return $code;
+    }
+
+    public function decoding($code) : String {
+
+    }
+
+    public function info() : String {
+
+    }
+}
+
+$Morsecoding = new Morse("Kódování morseovka");
+echo $Morsecoding -> coding("Ahoj");
 ?>
