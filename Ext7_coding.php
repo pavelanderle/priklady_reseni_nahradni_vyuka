@@ -23,7 +23,7 @@ abstract class codingString{
 /* Třída MorseABC - potomek třídy codingString. Třída umožňuje kódovat text do morseovy abecedy a z morseovy abecedy na text */
 
 class Morse extends CodingString{
-    const MORSECODE = array(
+    const MORSECODE = array(  // definování constanty pole s morseovou abecedou 
         "a"=>".-",
         "b"=>"-...",
         "c"=>"-.-.",
@@ -66,28 +66,43 @@ class Morse extends CodingString{
         "/"=>"-..-.",
         " "=>" ");
 
+        /* implementace metody coding */
     public function coding($text) : string{
-        $string_lower = strtolower($text);
-        $code = "";
+        $this->setnameCoding("Kódování textu do Morseovy abecedy"); // nastavení atributu $nameCoding
+        $string_lower = strtolower($text); // převod všech znaků vstupního paramaetru na malé znaky
+        $code = ""; // nastavení počáteční hodnoty proměnné $code
+        
+        /* for cyklus, kterým projdeme celý zadaný text */
         for($i=0;$i<strlen($string_lower);$i++){
+<<<<<<< HEAD
             $index = $string_lower[$i];
             $code .= SELF::MORSECODE["$index"]." ";
 
+=======
+            $index = $string_lower[$i]; // přiřazení aktuálního znaku dle iterace do proměnné $index      
+            $code .= SELF::MORSECODE["$index"]." "; // Převod znaku na morse code např. SELF::MORSECODE["A"] => ".-"
+               
+>>>>>>> de79162b8ffa38268c90e0a6bc17cd681ebb8919
         }
-        return $code;
+        return $code; // návratová hodnota $code .= SELF::MORSECODE["$index"] je to samé jako $code = $code.SELF::MORSECODE["$index"]
     }
 
+    /* implementace metody decoding */
     public function decoding($code) : String {
-        $codeExplode = explode("|",$code);
-        $text = "";
-        foreach ($codeExplode as $char) {
+        $this->setnameCoding("Převod kódu v Morseově abecedě na text"); // nastavení atributu $nameCoding
+        $codeExplode = explode("|",$code); // rozdělení Morse codu dle | (podmínka pro zadání codu - morse znaky odděleny |)
+        $text = ""; // nastavení počáteční hodnoty proměnné $code
+        
+        /* Foreach, který prochází pole se znaky v Morse codu - pole získáno pomocí fce explode */
+        foreach ($codeExplode as $char) { 
+            /* Foreach, který procází pole s kódem morseovy abecedy */
             foreach (SELF::MORSECODE as $key => $codeItem) {
-                if ($codeItem == $char) {
-                    $text .= $key;
+                if ($codeItem == $char) { // porovnání kodu znaku v MORSECODE a codeExplode
+                    $text .= $key; // v případě rovnosti přiřazení indexu $key do výsledného textu
                 }
             }
         }
-        return $text;
+        return $text; // vrácení výsledného dekodovaného textu
     }
 
     public function info() : String {
